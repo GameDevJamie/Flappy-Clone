@@ -20,4 +20,10 @@ public class GameAssets : MonoBehaviour
     public Transform pfPipeBody;
     public Transform pfGapPipes;
     public float CameraOrthoSize;
+
+    //Audio
+    public AudioClip sndScore;
+    public AudioClip sndBirdJump;
+    public AudioClip sndBirdDie;
+    public AudioClip sndButtonHover;
 }

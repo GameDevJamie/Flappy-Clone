@@ -66,7 +66,7 @@ public class CloudScript : MonoBehaviour
     private void SpawnCloud(float xPos, float yPos)
     {
         //Random Index
-        int index = Random.Range(0, m_SpriteList.Count - 1);
+        int index = Random.Range(0, m_SpriteList.Count);
 
         //Create GameObject
         GameObject g = new GameObject("Cloud");
