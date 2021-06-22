@@ -12,16 +12,20 @@ public class BirdScript : MonoBehaviour
     private EState m_State;
 
     private Rigidbody2D m_RigidBody;
+    private int m_PipesPassed;
 
     //Events
     public event EventHandler OnStartedPlaying;
     public event EventHandler OnDied;
+    public event EventHandler<int> OnPipePassed;
 
     private void Awake()
     {
         m_State = EState.IDLE;
         m_RigidBody = GetComponent<Rigidbody2D>();
         m_RigidBody.bodyType = RigidbodyType2D.Static;  //Sit Still
+
+        m_PipesPassed = 0;
     }
 
     private void Update()
@@ -85,6 +89,13 @@ public class BirdScript : MonoBehaviour
 
             m_State = EState.DEAD;
             m_RigidBody.bodyType = RigidbodyType2D.Static;  //Sit Still
+        }
+        else if (col.tag == "Score")
+        {
+            if (m_State == EState.DEAD) return;
+
+            m_PipesPassed++;
+            if (OnPipePassed != null) OnPipePassed(this, m_PipesPassed);
         }
     }
 }
