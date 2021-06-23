@@ -18,7 +18,6 @@ public class GameAssets : MonoBehaviour
 
     public Transform pfPipeHead;
     public Transform pfPipeBody;
-    public Transform pfGapPipes;
     public float CameraOrthoSize;
 
     //Audio
