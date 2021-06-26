@@ -17,6 +17,8 @@ public class LevelManagerScript : MonoBehaviour
     private GameObject CharacterSelectWindow;
     [SerializeField]
     private GameOverWindow GameOverWindow;
+    [SerializeField]
+    private ModifierWindowScript ModifierWindow;
 
     private PipeSpawnerScript m_PipeSpawnerScript;
     private GroundScript m_GroundManagerScript;
@@ -89,6 +91,8 @@ public class LevelManagerScript : MonoBehaviour
 
         //Hide UI Elements
         CharacterSelectWindow.SetActive(false);
+        ModifierWindow.Hide();
+        ModifierWindow.SpawnModifiers();
 
         //Start Bird Jumping
         Bird.GetComponent<BirdScript>().StartJumping();
@@ -103,6 +107,8 @@ public class LevelManagerScript : MonoBehaviour
         StopLevel();
 
         //Score.TrySetNewHighScore(Bird.GetComponent<BirdScript>().GetPipesPassed());
+
+        ModifierWindow.DestroyModifiers();
 
         GameOverWindow.Show();
     }

@@ -45,7 +45,7 @@ public class BirdScript : MonoBehaviour
                 this.transform.eulerAngles = new Vector3(0.0f, 0.0f, m_RigidBody.velocity.y * 0.3f);
 
                 //Check if out of bounds
-                if (this.transform.position.y > Camera.main.orthographicSize + 5.0f)
+                if (this.transform.position.y > Mathf.Abs(Camera.main.orthographicSize) + 5.0f)
                 {
                     Die();
                 }

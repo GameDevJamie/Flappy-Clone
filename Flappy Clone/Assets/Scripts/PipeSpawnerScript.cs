@@ -40,7 +40,7 @@ public class PipeSpawnerScript : MonoBehaviour
 
     private void Start()
     {
-        m_SpawnXPos = (Camera.main.orthographicSize * 2.0f) + 20.0f;
+        m_SpawnXPos = Mathf.Abs((Camera.main.orthographicSize * 2.0f)) + 20.0f;
         m_DestroyXPos = -m_SpawnXPos;
     }
 
@@ -117,7 +117,7 @@ public class PipeSpawnerScript : MonoBehaviour
         #region Constructor
         public GapPipe(float gapY, float gapSize, float xPos)
         {
-            float orthoSize = Camera.main.orthographicSize;
+            float orthoSize = Mathf.Abs(Camera.main.orthographicSize);
             float gapSizeHalf = (gapSize * 0.5f);
 
             m_BottomPipe = new Pipe(gapY - gapSizeHalf, xPos, true);
@@ -128,7 +128,7 @@ public class PipeSpawnerScript : MonoBehaviour
             m_ScoreTrigger.tag = "Score";
             m_ScoreTrigger.transform.position = new Vector3(xPos + 5.0f, 0);
             BoxCollider2D box = m_ScoreTrigger.AddComponent<BoxCollider2D>();
-            box.size = new Vector2(2.0f, Camera.main.orthographicSize * 2f);
+            box.size = new Vector2(2.0f, orthoSize * 2f);
         }
         #endregion
 
@@ -148,7 +148,7 @@ public class PipeSpawnerScript : MonoBehaviour
 
         public void SetGap(float gapY, float gapSize)
         {
-            float orthoSize = Camera.main.orthographicSize;
+            float orthoSize = Mathf.Abs(Camera.main.orthographicSize);
             float gapSizeHalf = (gapSize * 0.5f);
 
             m_TopPipe.SetHeight((orthoSize * 2.0f) - gapY - gapSizeHalf);
@@ -166,7 +166,7 @@ public class PipeSpawnerScript : MonoBehaviour
 
     private class Pipe
     {
-        private float CAMERA_ORTHO_SIZE = Camera.main.orthographicSize;
+        private float CAMERA_ORTHO_SIZE = Mathf.Abs(Camera.main.orthographicSize);
 
         private Transform m_PipeHead;
         private Transform m_PipeBody;
