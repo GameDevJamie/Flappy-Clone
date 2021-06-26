@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreScript : MonoBehaviour
+public class ScoreWindowScript : MonoBehaviour
 {
-    public Text ScoreText;
+    [SerializeField]
+    private Text ScoreText;
+    //[SerializeField]
+    //private Text HighScoreText;
 
     // Start is called before the first frame update
     void Start()

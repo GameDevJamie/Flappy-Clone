@@ -12,6 +12,7 @@ public class BirdScript : MonoBehaviour
     private EState m_State;
 
     private Rigidbody2D m_RigidBody;
+    private Animator m_Animator;
     private int m_PipesPassed;
 
     //Events
@@ -23,6 +24,9 @@ public class BirdScript : MonoBehaviour
         m_State = EState.IDLE;
         m_RigidBody = GetComponent<Rigidbody2D>();
         m_RigidBody.bodyType = RigidbodyType2D.Static;  //Sit Still
+
+        //Get Animator
+        m_Animator = GetComponent<Animator>();
 
         m_PipesPassed = 0;
     }
@@ -39,6 +43,12 @@ public class BirdScript : MonoBehaviour
                 if (jumpKey) Jump();
 
                 this.transform.eulerAngles = new Vector3(0.0f, 0.0f, m_RigidBody.velocity.y * 0.3f);
+
+                //Check if out of bounds
+                if (this.transform.position.y > Camera.main.orthographicSize + 5.0f)
+                {
+                    Die();
+                }
                 break;
 
             case EState.DEAD:
@@ -53,6 +63,17 @@ public class BirdScript : MonoBehaviour
     {
         m_RigidBody.velocity = Vector3.up * JumpSpeed;
         SoundManager.GetInstance().PlaySoundEffect(Sound.BIRD_JUMP);
+    }
+
+    private void Die()
+    {
+        m_State = EState.DEAD;
+        m_Animator.SetBool("Dead", true);
+        m_RigidBody.velocity = Vector3.down;    //Start Falling
+
+        if (OnDied != null) OnDied(this, EventArgs.Empty);
+
+        SoundManager.GetInstance().PlaySoundEffect(Sound.BIRD_DIE);
     }
 
     /// <summary>
@@ -73,21 +94,12 @@ public class BirdScript : MonoBehaviour
         //------------
         if(col.tag == "Obstacle")
         {
-            //Call Died Event
-            if (OnDied != null) OnDied(this, EventArgs.Empty);
-            m_State = EState.DEAD;
-            m_RigidBody.velocity = Vector3.down;    //Start Falling
-
-            SoundManager.GetInstance().PlaySoundEffect(Sound.BIRD_DIE);
+            Die();
         }
         else if(col.tag == "Ground")
         {
-           //Call Died Event
-           if (OnDied != null) OnDied(this, EventArgs.Empty);
-           m_State = EState.DEAD;
+           Die();
            m_RigidBody.bodyType = RigidbodyType2D.Static;  //Sit Still
-
-           SoundManager.GetInstance().PlaySoundEffect(Sound.BIRD_DIE);
         }
         else if (col.tag == "Score")
         {
@@ -104,6 +116,11 @@ public class BirdScript : MonoBehaviour
         m_RigidBody.bodyType = RigidbodyType2D.Dynamic;
         Jump();
         m_State = EState.JUMPING;
+    }
+
+    public int GetPipesPassed()
+    {
+        return m_PipesPassed;
     }
     #endregion
 }

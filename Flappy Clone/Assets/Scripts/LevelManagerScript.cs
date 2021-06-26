@@ -13,7 +13,10 @@ public class LevelManagerScript : MonoBehaviour
     public GameObject Bird;
 
     //UI
-    public GameObject CharacterSelectWindow;
+    [SerializeField]
+    private GameObject CharacterSelectWindow;
+    [SerializeField]
+    private GameOverWindow GameOverWindow;
 
     private PipeSpawnerScript m_PipeSpawnerScript;
     private GroundScript m_GroundManagerScript;
@@ -98,6 +101,10 @@ public class LevelManagerScript : MonoBehaviour
     {
         m_State = EState.GAME_OVER;
         StopLevel();
+
+        //Score.TrySetNewHighScore(Bird.GetComponent<BirdScript>().GetPipesPassed());
+
+        GameOverWindow.Show();
     }
     #endregion
 }

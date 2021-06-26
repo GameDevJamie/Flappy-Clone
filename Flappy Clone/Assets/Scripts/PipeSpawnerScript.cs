@@ -126,9 +126,9 @@ public class PipeSpawnerScript : MonoBehaviour
             //Create Score Trigger
             m_ScoreTrigger = new GameObject("Score Trigger");
             m_ScoreTrigger.tag = "Score";
-            m_ScoreTrigger.transform.position = new Vector3(xPos + 5.0f, gapY - gapSize);
+            m_ScoreTrigger.transform.position = new Vector3(xPos + 5.0f, 0);
             BoxCollider2D box = m_ScoreTrigger.AddComponent<BoxCollider2D>();
-            box.size = new Vector2(2.0f, gapSize);
+            box.size = new Vector2(2.0f, Camera.main.orthographicSize * 2f);
         }
         #endregion
 
