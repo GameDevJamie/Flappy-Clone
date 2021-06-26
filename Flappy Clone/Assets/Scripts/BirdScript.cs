@@ -8,7 +8,7 @@ public class BirdScript : MonoBehaviour
     public float JumpSpeed;
     public float RotSpeed;
 
-    private enum EState { IDLE, JUMPING, DEAD }
+    private enum EState { IDLE, JUMPING, DEAD_AIR, DEAD_GROUND }
     private EState m_State;
 
     private Rigidbody2D m_RigidBody;
@@ -42,7 +42,7 @@ public class BirdScript : MonoBehaviour
             case EState.JUMPING:
                 if (jumpKey) Jump();
 
-                this.transform.eulerAngles = new Vector3(0.0f, 0.0f, m_RigidBody.velocity.y * 0.3f);
+                this.transform.eulerAngles = new Vector3(0.0f, 0.0f, m_RigidBody.velocity.y * 0.6f);
 
                 //Check if out of bounds
                 if (this.transform.position.y > Mathf.Abs(Camera.main.orthographicSize) + 5.0f)
@@ -51,7 +51,11 @@ public class BirdScript : MonoBehaviour
                 }
                 break;
 
-            case EState.DEAD:
+            case EState.DEAD_AIR:
+                this.transform.eulerAngles = new Vector3(0.0f, 0.0f, m_RigidBody.velocity.y * 0.6f);
+                break;
+
+            case EState.DEAD_GROUND:
                 break;
         }
     }
@@ -67,7 +71,7 @@ public class BirdScript : MonoBehaviour
 
     private void Die()
     {
-        m_State = EState.DEAD;
+        m_State = EState.DEAD_AIR;
         m_Animator.SetBool("Dead", true);
         m_RigidBody.velocity = Vector3.down;    //Start Falling
 
@@ -82,29 +86,31 @@ public class BirdScript : MonoBehaviour
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.tag == "Ground" && m_State == EState.DEAD)
+        if(col.tag == "Ground" && m_State == EState.DEAD_AIR)
         {
-            m_RigidBody.bodyType = RigidbodyType2D.Static;
-            return;
+          m_RigidBody.bodyType = RigidbodyType2D.Static;
+          m_State = EState.DEAD_GROUND;
+          return;
         }
-        if (m_State == EState.DEAD) return;
+        if (m_State == EState.DEAD_AIR || m_State == EState.DEAD_GROUND) return;
 
 
         //Not Dead
         //------------
         if(col.tag == "Obstacle")
         {
-            Die();
+          Die();
         }
         else if(col.tag == "Ground")
-        {
-           Die();
-           m_RigidBody.bodyType = RigidbodyType2D.Static;  //Sit Still
+        {   
+          Die();
+          m_State = EState.DEAD_GROUND;
+          m_RigidBody.bodyType = RigidbodyType2D.Static;  //Sit Still
         }
         else if (col.tag == "Score")
         {
-            m_PipesPassed++;
-            if (OnPipePassed != null) OnPipePassed(this, m_PipesPassed);
+          m_PipesPassed++;
+          if (OnPipePassed != null) OnPipePassed(this, m_PipesPassed);
         }
         //------------
     }
