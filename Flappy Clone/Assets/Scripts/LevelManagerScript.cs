@@ -64,6 +64,13 @@ public class LevelManagerScript : MonoBehaviour
                 if(Input.GetKeyDown(KeyCode.Space))
                 {
                     StartGame();
+                    return;
+                }
+
+                if(Input.GetKeyDown(KeyCode.M))
+                {
+                    if (!ModifierWindow.IsOpen()) ModifierWindow.Show();
+                    else ModifierWindow.Hide();
                 }
                 break;
 

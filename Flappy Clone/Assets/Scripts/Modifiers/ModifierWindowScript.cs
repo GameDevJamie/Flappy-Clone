@@ -5,41 +5,18 @@ using UnityEngine.UI;
 
 public class ModifierWindowScript : MonoBehaviour
 {
-    private bool m_WeightMod;
-    private bool m_ShiftingPipesMod;
-    private bool m_MirrorMod;
-
-    private void Awake()
-    {
-        m_WeightMod = false;
-        m_ShiftingPipesMod = false;
-        m_MirrorMod = false;
-    }
+    private Toggle m_WeightMod;
+    private Toggle m_ShiftingPipesMod;
+    private Toggle m_MirrorMod;
 
     // Start is called before the first frame update
     private void Start()
     {
-        this.transform.Find("WeightModBtn").GetComponent<Button>().onClick.AddListener(WeightModClick);
-        this.transform.Find("ShiftingPipesModBtn").GetComponent<Button>().onClick.AddListener(ShiftingPipesModClick);
-        this.transform.Find("MirrorModBtn").GetComponent<Button>().onClick.AddListener(MirrorModClick);
-    }
+        m_WeightMod = this.transform.Find("WeightMod").GetComponent<Toggle>();
+        m_ShiftingPipesMod = this.transform.Find("ShiftingPipesMod").GetComponent<Toggle>();
+        m_MirrorMod = this.transform.Find("MirrorMod").GetComponent<Toggle>();
 
-    private void WeightModClick()
-    {
-        m_WeightMod = !m_WeightMod;
-        Debug.Log("Weight Mod: " + m_WeightMod);
-    }
-
-    private void ShiftingPipesModClick()
-    {
-        m_ShiftingPipesMod = !m_ShiftingPipesMod;
-        Debug.Log("Shifting Pipes Mod: " + m_ShiftingPipesMod);
-    }
-
-    private void MirrorModClick()
-    {
-        m_MirrorMod = !m_MirrorMod;
-        Debug.Log("Mirror Mod: " + m_MirrorMod);
+        Hide();
     }
 
 
@@ -48,16 +25,16 @@ public class ModifierWindowScript : MonoBehaviour
     /// </summary>
     public void SpawnModifiers()
     {
-        if (m_WeightMod)
+        if (m_WeightMod.isOn)
         {
             GameObject g = new GameObject("Modifier: Weight", typeof(WeightMod));
             g.tag = "Modifier";
         }
-        if(m_ShiftingPipesMod)
+        if(m_ShiftingPipesMod.isOn)
         {
             //Spawn Mod
         }
-        if(m_MirrorMod)
+        if(m_MirrorMod.isOn)
         {
             GameObject g = new GameObject("Modifier: Mirror", typeof(MirrorMod));
             g.tag = "Modifier";
@@ -83,6 +60,11 @@ public class ModifierWindowScript : MonoBehaviour
     public void Show()
     {
         this.gameObject.SetActive(true);
+    }
+
+    public bool IsOpen()
+    {
+        return this.gameObject.activeSelf;
     }
     #endregion
 }
