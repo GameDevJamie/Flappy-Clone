@@ -1,19 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterSelectScript : MonoBehaviour
 {
-    //Possible Bird Sprites to select
-    public List<Sprite> SpriteList;
+    /// <summary>
+    /// Sprite to change
+    /// </summary>
+    [SerializeField]
+    private SpriteRenderer Sprite;
 
-    private GameObject m_Bird;
+    /// <summary>
+    /// List of sprites to change to
+    /// </summary>
+    [SerializeField]
+    private List<Sprite> SpriteList;
+
     private int m_SelectedSpriteIndex;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        m_Bird = GameObject.FindGameObjectWithTag("Player");
+        int selectedIndex = PlayerPrefs.GetInt("CharacterSelectIndex", 0);
+
+        //Set Sprite to previously used bird
+        Sprite.sprite = SpriteList[selectedIndex];
     }
 
     public void NextSprite()
@@ -21,7 +32,7 @@ public class CharacterSelectScript : MonoBehaviour
         m_SelectedSpriteIndex++;
         if (m_SelectedSpriteIndex >= SpriteList.Count) m_SelectedSpriteIndex = 0;
 
-        m_Bird.GetComponent<SpriteRenderer>().sprite = SpriteList[m_SelectedSpriteIndex];
+        Sprite.sprite = SpriteList[m_SelectedSpriteIndex];
     }
 
     public void PreviousSprite()
@@ -29,6 +40,6 @@ public class CharacterSelectScript : MonoBehaviour
         m_SelectedSpriteIndex--;
         if (m_SelectedSpriteIndex < 0) m_SelectedSpriteIndex = (SpriteList.Count - 1);
 
-        m_Bird.GetComponent<SpriteRenderer>().sprite = SpriteList[m_SelectedSpriteIndex];
+        Sprite.sprite = SpriteList[m_SelectedSpriteIndex];
     }
 }
