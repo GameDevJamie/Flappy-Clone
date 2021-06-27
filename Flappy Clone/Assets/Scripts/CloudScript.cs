@@ -21,13 +21,13 @@ public class CloudScript : MonoBehaviour
     private void Awake()
     {
         m_Clouds = new List<Cloud>();
-        m_Active = false;
+        m_Active = true;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        float cameraOrthoSize = (GameAssets.GetInstance().CameraOrthoSize * 2.0f);
+        float cameraOrthoSize = Mathf.Abs((Camera.main.orthographicSize * 2.0f));
 
         m_SpawnXPos = cameraOrthoSize + 20.0f;
         m_DestroyXPos = -cameraOrthoSize - 20.0f;

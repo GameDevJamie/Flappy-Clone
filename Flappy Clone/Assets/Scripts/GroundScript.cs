@@ -32,7 +32,7 @@ public class GroundScript : MonoBehaviour
 
     private void Start()
     {
-        m_Active = false;
+        m_Active = true;
     }
 
     // Update is called once per frame

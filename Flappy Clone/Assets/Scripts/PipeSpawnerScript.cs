@@ -61,7 +61,7 @@ public class PipeSpawnerScript : MonoBehaviour
             float gapSizeHalf = DifficultyList[m_DifficultyIndex].GapSize * 0.5f;
             float heightEdgeLimit = 10f;
             float minHeight = gapSizeHalf + heightEdgeLimit;
-            float totalHeight = GameAssets.GetInstance().CameraOrthoSize * 2.0f;
+            float totalHeight = Mathf.Abs((Camera.main.orthographicSize * 2.0f));
             float maxHeight = totalHeight - gapSizeHalf - heightEdgeLimit;
 
             //Spawn Pipe
