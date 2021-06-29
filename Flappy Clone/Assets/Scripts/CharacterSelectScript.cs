@@ -17,7 +17,14 @@ public class CharacterSelectScript : MonoBehaviour
     [SerializeField]
     private List<Sprite> SpriteList;
 
+    private AudioSource AudioSource;
+
     private int m_SelectedSpriteIndex;
+
+    private void Awake()
+    {
+        AudioSource = GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
@@ -27,12 +34,26 @@ public class CharacterSelectScript : MonoBehaviour
         Sprite.sprite = SpriteList[selectedIndex];
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            PreviousSprite();
+        }
+        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            PreviousSprite();
+        }
+    }
+
     public void NextSprite()
     {
         m_SelectedSpriteIndex++;
         if (m_SelectedSpriteIndex >= SpriteList.Count) m_SelectedSpriteIndex = 0;
 
         Sprite.sprite = SpriteList[m_SelectedSpriteIndex];
+
+        PlaySound();
     }
 
     public void PreviousSprite()
@@ -41,5 +62,12 @@ public class CharacterSelectScript : MonoBehaviour
         if (m_SelectedSpriteIndex < 0) m_SelectedSpriteIndex = (SpriteList.Count - 1);
 
         Sprite.sprite = SpriteList[m_SelectedSpriteIndex];
+
+        PlaySound();
+    }
+
+    private void PlaySound()
+    {
+        AudioSource.Play();
     }
 }
