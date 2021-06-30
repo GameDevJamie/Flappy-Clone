@@ -11,6 +11,13 @@ public class LevelLoader : MonoBehaviour
     [SerializeField]
     private float TransitionTime;
 
+    private AudioSource AudioSource;
+
+    private void Awake()
+    {
+        AudioSource = GetComponent<AudioSource>();
+    }
+
     public void StartGame()
     {
         StartCoroutine(LoadLevel(1));
@@ -24,6 +31,7 @@ public class LevelLoader : MonoBehaviour
     private IEnumerator LoadLevel(int index)
     {
         Transition.SetTrigger("Start");
+        AudioSource.Play();
 
         yield return new WaitForSeconds(TransitionTime);
 
