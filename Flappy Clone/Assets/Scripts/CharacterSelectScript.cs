@@ -6,16 +6,13 @@ using UnityEngine.UI;
 public class CharacterSelectScript : MonoBehaviour
 {
     /// <summary>
-    /// Sprite to change
+    /// Sprite/Animation to change
     /// </summary>
     [SerializeField]
-    private SpriteRenderer Sprite;
+    private Animator Sprite;
 
-    /// <summary>
-    /// List of sprites to change to
-    /// </summary>
     [SerializeField]
-    private List<Sprite> SpriteList;
+    private int m_NumAnimations = 3;
 
     private AudioSource AudioSource;
 
@@ -31,7 +28,8 @@ public class CharacterSelectScript : MonoBehaviour
         int selectedIndex = PlayerPrefs.GetInt("CharacterSelectIndex", 0);
 
         //Set Sprite to previously used bird
-        Sprite.sprite = SpriteList[selectedIndex];
+        m_SelectedSpriteIndex = selectedIndex;
+        SetAnimation(m_SelectedSpriteIndex);
     }
 
     private void Update()
@@ -42,32 +40,36 @@ public class CharacterSelectScript : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            PreviousSprite();
+            NextSprite();
         }
     }
 
     public void NextSprite()
     {
         m_SelectedSpriteIndex++;
-        if (m_SelectedSpriteIndex >= SpriteList.Count) m_SelectedSpriteIndex = 0;
+        if (m_SelectedSpriteIndex >= m_NumAnimations) m_SelectedSpriteIndex = 0;
 
-        Sprite.sprite = SpriteList[m_SelectedSpriteIndex];
-
+        SetAnimation(m_SelectedSpriteIndex);
         PlaySound();
     }
 
     public void PreviousSprite()
     {
         m_SelectedSpriteIndex--;
-        if (m_SelectedSpriteIndex < 0) m_SelectedSpriteIndex = (SpriteList.Count - 1);
+        if (m_SelectedSpriteIndex < 0) m_SelectedSpriteIndex = m_NumAnimations - 1;
 
-        Sprite.sprite = SpriteList[m_SelectedSpriteIndex];
-
+        SetAnimation(m_SelectedSpriteIndex);
         PlaySound();
     }
 
     private void PlaySound()
     {
         AudioSource.Play();
+    }
+
+    private void SetAnimation(int index)
+    {
+        if (index >= m_NumAnimations) return;
+        Sprite.SetInteger("AnimIndex", index);
     }
 }

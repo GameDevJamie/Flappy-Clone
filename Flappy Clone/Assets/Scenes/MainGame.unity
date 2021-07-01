@@ -327,7 +327,7 @@ MonoBehaviour:
   - sound: 0
     clip: {fileID: 8300000, guid: 5f7c67359d1c0ac4894bdf8b740cce5e, type: 3}
   - sound: 1
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 0a6902fb619d36e4c8bde37b7e92ae60, type: 3}
   - sound: 2
     clip: {fileID: 8300000, guid: c7c9042607e8c8149a4eddc3f6810c90, type: 3}
   - sound: 3
