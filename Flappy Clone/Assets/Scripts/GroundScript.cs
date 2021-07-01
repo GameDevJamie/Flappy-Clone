@@ -28,10 +28,7 @@ public class GroundScript : MonoBehaviour
         GroundList[0].transform.SetParent(this.transform);
         GroundList[1].transform.SetParent(this.transform);
         GroundList[2].transform.SetParent(this.transform);
-    }
 
-    private void Start()
-    {
         m_Active = true;
     }
 

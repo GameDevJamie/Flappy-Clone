@@ -14,11 +14,7 @@ public class LevelManagerScript : MonoBehaviour
 
     //UI
     [SerializeField]
-    private GameObject CharacterSelectWindow;
-    [SerializeField]
     private GameOverWindow GameOverWindow;
-    [SerializeField]
-    private ModifierWindowScript ModifierWindow;
 
     private PipeSpawnerScript m_PipeSpawnerScript;
     private GroundScript m_GroundManagerScript;
@@ -42,16 +38,14 @@ public class LevelManagerScript : MonoBehaviour
         m_GroundManagerScript.MoveSpeed = MoveSpeed;
         m_CloudManagerScript.MoveSpeed = MoveSpeed * 0.5f;
 
-        //Create Bird object
-        Vector3 birdPos = Vector3.zero;
-        Bird.transform.position = birdPos;
-
         //Subscribe to Events
         Bird.GetComponent<BirdScript>().OnDied += GameOver;
 
         m_State = EState.CHARACTER_SELECT;
 
         StopLevel();
+        m_GroundManagerScript.Enable();
+        m_CloudManagerScript.Enable();
     }
 
     // Update is called once per frame
@@ -65,12 +59,6 @@ public class LevelManagerScript : MonoBehaviour
                 {
                     StartGame();
                     return;
-                }
-
-                if(Input.GetKeyDown(KeyCode.M))
-                {
-                    if (!ModifierWindow.IsOpen()) ModifierWindow.Show();
-                    else ModifierWindow.Hide();
                 }
                 break;
 
@@ -96,11 +84,6 @@ public class LevelManagerScript : MonoBehaviour
         m_CloudManagerScript.Enable();
         m_GroundManagerScript.Enable();
 
-        //Hide UI Elements
-        CharacterSelectWindow.SetActive(false);
-        ModifierWindow.Hide();
-        ModifierWindow.SpawnModifiers();
-
         //Start Bird Jumping
         Bird.GetComponent<BirdScript>().StartJumping();
 
@@ -114,8 +97,6 @@ public class LevelManagerScript : MonoBehaviour
         StopLevel();
 
         //Score.TrySetNewHighScore(Bird.GetComponent<BirdScript>().GetPipesPassed());
-
-        ModifierWindow.DestroyModifiers();
 
         GameOverWindow.Show();
     }

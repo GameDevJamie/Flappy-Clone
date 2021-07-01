@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpriteList:
-  - {fileID: 21300000, guid: 23f7332818d85ed4f877a5407d7842a7, type: 3}
-  - {fileID: 21300000, guid: ff2c954d0dead504ca141fd399bc78e4, type: 3}
+  - {fileID: 21300000, guid: 7431554e2fbbbf7438464fe1e9a83a2f, type: 3}
+  - {fileID: 21300000, guid: 2de12fa5b8342a54b83f8c9bab66acde, type: 3}
+  - {fileID: 21300000, guid: 29c126f7bb205e34ab34a5d38ac99c53, type: 3}
   MoveSpeed: 15
   SpawnTimerMin: 1
   SpawnTimerMax: 7

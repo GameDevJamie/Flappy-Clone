@@ -46,4 +46,4 @@ MonoBehaviour:
   GroundPrefab: {fileID: 1752843675316117847, guid: 4aa2acbb7902d8e4d8101e07d78660cf, type: 3}
   SpawnYPos: -48
   DestroyXPos: -220
-  MoveSpeed: 30
+  MoveSpeed: 20

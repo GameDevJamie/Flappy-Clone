@@ -73,7 +73,7 @@ public class BirdScript : MonoBehaviour
     {
         m_State = EState.DEAD_AIR;
         m_Animator.SetBool("Dead", true);
-        m_RigidBody.velocity = Vector3.down;    //Start Falling
+        m_RigidBody.velocity = Vector3.down * 5f;    //Start Falling
 
         if (OnDied != null) OnDied(this, EventArgs.Empty);
 
@@ -88,9 +88,10 @@ public class BirdScript : MonoBehaviour
     {
         if(col.tag == "Ground" && m_State == EState.DEAD_AIR)
         {
-          m_RigidBody.bodyType = RigidbodyType2D.Static;
-          m_State = EState.DEAD_GROUND;
-          return;
+            this.transform.eulerAngles = new Vector3(0.0f, 0.0f, -90.0f);
+            m_RigidBody.bodyType = RigidbodyType2D.Static;
+            m_State = EState.DEAD_GROUND;
+            return;
         }
         if (m_State == EState.DEAD_AIR || m_State == EState.DEAD_GROUND) return;
 
@@ -99,18 +100,19 @@ public class BirdScript : MonoBehaviour
         //------------
         if(col.tag == "Obstacle")
         {
-          Die();
+            Die();
         }
         else if(col.tag == "Ground")
         {   
-          Die();
-          m_State = EState.DEAD_GROUND;
-          m_RigidBody.bodyType = RigidbodyType2D.Static;  //Sit Still
+            Die();
+            m_State = EState.DEAD_GROUND;
+            this.transform.eulerAngles = new Vector3(0.0f, 0.0f, -90.0f);
+            m_RigidBody.bodyType = RigidbodyType2D.Static;  //Sit Still
         }
         else if (col.tag == "Score")
         {
-          m_PipesPassed++;
-          if (OnPipePassed != null) OnPipePassed(this, m_PipesPassed);
+            m_PipesPassed++;
+            if (OnPipePassed != null) OnPipePassed(this, m_PipesPassed);
         }
         //------------
     }
