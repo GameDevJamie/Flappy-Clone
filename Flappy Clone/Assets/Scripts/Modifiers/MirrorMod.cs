@@ -10,10 +10,17 @@ public class MirrorMod : ModifierBase
     {
         m_OriginalSize = Camera.main.orthographicSize;
         Camera.main.orthographicSize = -m_OriginalSize;
+
+        //Flip UI Components too
+        GameObject.FindGameObjectWithTag("UI").GetComponent<RectTransform>().localScale = new Vector3(-1, -1, 1);
     }
 
     private void OnDestroy()
     {
-        Camera.main.orthographicSize = m_OriginalSize;
+        if(Camera.main) Camera.main.orthographicSize = m_OriginalSize;
+
+        //Reset UI Scale
+        var ui = GameObject.FindGameObjectWithTag("UI");
+        if(ui) ui.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
     }
 }

@@ -14,7 +14,10 @@ public class LevelManagerScript : MonoBehaviour
 
     //UI
     [SerializeField]
-    private GameOverWindow GameOverWindow;
+    private ToggleActive GameOverWindow;
+    [SerializeField]
+    private ToggleActive GetReadyWindow;
+    
 
     private PipeSpawnerScript m_PipeSpawnerScript;
     private GroundScript m_GroundManagerScript;
@@ -46,6 +49,9 @@ public class LevelManagerScript : MonoBehaviour
         StopLevel();
         m_GroundManagerScript.Enable();
         m_CloudManagerScript.Enable();
+
+        //Spawn all Active Mods
+        SpawnMods();
     }
 
     // Update is called once per frame
@@ -55,7 +61,7 @@ public class LevelManagerScript : MonoBehaviour
         {
             case EState.CHARACTER_SELECT:
                 //Has game started
-                if(Input.GetKeyDown(KeyCode.Space))
+                if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 {
                     StartGame();
                     return;
@@ -87,7 +93,25 @@ public class LevelManagerScript : MonoBehaviour
         //Start Bird Jumping
         Bird.GetComponent<BirdScript>().StartJumping();
 
+        GetReadyWindow.Hide();
+
         m_State = EState.PLAYING;
+    }
+
+    private void SpawnMods()
+    {
+        if(ModManager.IsModActive(EModType.WEIGHT))
+        {
+            GameObject g = new GameObject("Weight_Mod", typeof(WeightMod));
+        }
+        if (ModManager.IsModActive(EModType.SHIFT))
+        {
+            //GameObject g = new GameObject("Weight_Mod", typeof(ShiftMod));
+        }
+        if (ModManager.IsModActive(EModType.MIRROR))
+        {
+            GameObject g = new GameObject("Mirro_Mod", typeof(MirrorMod));
+        }
     }
 
     #region Events

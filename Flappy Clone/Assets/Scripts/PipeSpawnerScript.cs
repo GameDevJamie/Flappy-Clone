@@ -40,7 +40,7 @@ public class PipeSpawnerScript : MonoBehaviour
 
     private void Start()
     {
-        m_SpawnXPos = Mathf.Abs((Camera.main.orthographicSize * 2.0f)) + 20.0f;
+        m_SpawnXPos = Mathf.Abs((Camera.main.orthographicSize * 2.0f)) + 5.0f;
         m_DestroyXPos = -m_SpawnXPos;
     }
 
@@ -105,6 +105,7 @@ public class PipeSpawnerScript : MonoBehaviour
     public void Enable(bool enable = true)
     {
         m_Active = enable;
+        if (enable) PipeSpawnTimer = -1;    //Spawn a pipe 
     }
     #endregion
 
