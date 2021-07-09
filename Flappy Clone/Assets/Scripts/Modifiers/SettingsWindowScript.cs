@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ModWindowScript : MonoBehaviour
+public class SettingsWindowScript : MonoBehaviour
 {
     private struct SMod
     {
