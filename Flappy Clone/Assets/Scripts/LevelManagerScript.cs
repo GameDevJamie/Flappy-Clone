@@ -49,9 +49,6 @@ public class LevelManagerScript : MonoBehaviour
         StopLevel();
         m_GroundManagerScript.Enable();
         m_CloudManagerScript.Enable();
-
-        //Spawn all Active Mods
-        SpawnMods();
     }
 
     // Update is called once per frame
@@ -96,22 +93,6 @@ public class LevelManagerScript : MonoBehaviour
         GetReadyWindow.Hide();
 
         m_State = EState.PLAYING;
-    }
-
-    private void SpawnMods()
-    {
-        if(ModManager.IsModActive(EModType.WEIGHT))
-        {
-            GameObject g = new GameObject("Weight_Mod", typeof(WeightMod));
-        }
-        if (ModManager.IsModActive(EModType.SHIFT))
-        {
-            //GameObject g = new GameObject("Weight_Mod", typeof(ShiftMod));
-        }
-        if (ModManager.IsModActive(EModType.MIRROR))
-        {
-            GameObject g = new GameObject("Mirro_Mod", typeof(MirrorMod));
-        }
     }
 
     #region Events

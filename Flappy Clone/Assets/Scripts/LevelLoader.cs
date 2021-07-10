@@ -3,6 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public static class CoroutineUtil
+{
+    public static IEnumerator WaitForRealSeconds(float time)
+    {
+        float start = Time.realtimeSinceStartup;
+        while(Time.realtimeSinceStartup < (start + time))
+        {
+            yield return null;
+        }
+    }
+}
+
 public class LevelLoader : MonoBehaviour
 {
     [SerializeField]
@@ -33,7 +45,7 @@ public class LevelLoader : MonoBehaviour
         Transition.SetTrigger("Start");
         AudioSource.Play();
 
-        yield return new WaitForSeconds(TransitionTime);
+        yield return CoroutineUtil.WaitForRealSeconds(TransitionTime);
 
         SceneManager.LoadScene(index);
     }

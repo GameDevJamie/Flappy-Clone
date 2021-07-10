@@ -122,6 +122,10 @@ public class BirdScript : MonoBehaviour
     public void StartJumping()
     {
         m_RigidBody.bodyType = RigidbodyType2D.Dynamic;
+
+        //Set Gravity based on chosen selection
+        m_RigidBody.gravityScale = (int)GameSettings.GetGravityStrength() * 9f;
+
         Jump();
         m_State = EState.JUMPING;
     }
