@@ -10,13 +10,6 @@ public class ScoreWindowScript : MonoBehaviour
     //[SerializeField]
     //private Text HighScoreText;
 
-    private int m_Multiplier;
-
-    private void Awake()
-    {
-        m_Multiplier = 1;
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +19,7 @@ public class ScoreWindowScript : MonoBehaviour
 
     private void UpdateScoreText(object sender, int pipesPassed)
     {
-        ScoreText.text = "Score: " + (pipesPassed * m_Multiplier);
+        ScoreText.text = "Score: " + pipesPassed;
 
         SoundManager.GetInstance().PlaySoundEffect(Sound.SCORE);
     }
