@@ -24,6 +24,8 @@ public class PipeSpawnerScript : MonoBehaviour
     private float m_DestroyXPos;
     private List<GapPipe> m_GapPipesList;
 
+    private EShiftPipesMode m_ShiftPipesMode;
+
     private bool m_Active;
 
 
@@ -34,6 +36,8 @@ public class PipeSpawnerScript : MonoBehaviour
         PipeSpawnTimer = DifficultyList[m_DifficultyIndex].PipeSpawnRate;
 
         m_GapPipesList = new List<GapPipe>();
+
+        m_ShiftPipesMode = GameSettings.GetShiftPipesMode();
 
         m_Active = false;
     }
@@ -57,18 +61,9 @@ public class PipeSpawnerScript : MonoBehaviour
         PipeSpawnTimer -= Time.deltaTime;
         if(PipeSpawnTimer <= 0.0f)
         {
-            //Calculate Min and Max height for the pipes
-            float gapSizeHalf = DifficultyList[m_DifficultyIndex].GapSize * 0.5f;
-            float heightEdgeLimit = 10f;
-            float minHeight = gapSizeHalf + heightEdgeLimit;
-            float totalHeight = Mathf.Abs((Camera.main.orthographicSize * 2.0f));
-            float maxHeight = totalHeight - gapSizeHalf - heightEdgeLimit;
-
-            //Spawn Pipe
-            float height = Random.Range(minHeight, maxHeight);
+            float height = GetRandomGapHeight();
 
             SpawnGapPipe(height, DifficultyList[m_DifficultyIndex].GapSize, m_SpawnXPos);
-
 
             UpdateDifficulty(); //Update Difficulty now to get new spawn rate
             PipeSpawnTimer = DifficultyList[m_DifficultyIndex].PipeSpawnRate;
@@ -92,6 +87,11 @@ public class PipeSpawnerScript : MonoBehaviour
     {
         m_GapPipesList.Add(new GapPipe(gapY, gapSize, xPos));
         m_PipesSpawned++;
+
+        if(m_ShiftPipesMode == EShiftPipesMode.ON)
+        {
+            m_GapPipesList[m_GapPipesList.Count - 1].EnableShift(GetRandomGapHeight());
+        }
     }
 
     private void UpdateDifficulty()
@@ -100,6 +100,19 @@ public class PipeSpawnerScript : MonoBehaviour
         if (m_PipesSpawned >= DifficultyList[m_DifficultyIndex + 1].PipesSpawned) m_DifficultyIndex++;
     }
 
+    private float GetRandomGapHeight()
+    {
+        //Calculate Min and Max height for the pipes
+        float gapSizeHalf = DifficultyList[m_DifficultyIndex].GapSize * 0.5f;
+        float heightEdgeLimit = 10f;
+        float minHeight = gapSizeHalf + heightEdgeLimit;
+        float totalHeight = Mathf.Abs((Camera.main.orthographicSize * 2.0f));
+        float maxHeight = totalHeight - gapSizeHalf - heightEdgeLimit;
+
+        //Spawn Pipe
+        float height = Random.Range(minHeight, maxHeight);
+        return height;
+    }
 
     #region Public Methods
     public void Enable(bool enable = true)
@@ -109,15 +122,31 @@ public class PipeSpawnerScript : MonoBehaviour
     }
     #endregion
 
+
+
+
     private class GapPipe
     {
         private Pipe m_TopPipe;
         private Pipe m_BottomPipe;
         private GameObject m_ScoreTrigger;
 
+        private float m_GapY;
+        private float m_NewGapY;    //For Shifting
+        private float m_GapSize;
+
+        private bool m_Shift;
+        private float m_ShiftTimer;
+        private bool m_Shifting;
+
         #region Constructor
         public GapPipe(float gapY, float gapSize, float xPos)
         {
+            m_GapY = gapY;
+            m_GapSize = gapSize;
+            m_Shift = false;
+            m_Shifting = false;
+
             float orthoSize = Mathf.Abs(Camera.main.orthographicSize);
             float gapSizeHalf = (gapSize * 0.5f);
 
@@ -145,6 +174,34 @@ public class PipeSpawnerScript : MonoBehaviour
             m_TopPipe.Move(moveSpeed);
             m_BottomPipe.Move(moveSpeed);
             m_ScoreTrigger.transform.position += (Vector3.left * moveSpeed);
+
+            if(m_Shift && !m_Shifting)
+            {
+                //Get Screen Position
+                Vector3 screenPos = Camera.main.WorldToScreenPoint(new Vector3(m_TopPipe.GetXPos(), 0, 0));
+
+                //Check if Gap Pipe is in view of player's screen
+                if (screenPos.x < Screen.width)
+                {
+                    m_Shift = false;
+                    m_Shifting = true;
+                }
+            }
+
+            if(m_Shifting)
+            {
+                //LERP between old and new gap y
+                m_ShiftTimer += Time.deltaTime;
+                float newgap = Mathf.Lerp(m_GapY, m_NewGapY, m_ShiftTimer);
+                SetGap(newgap, m_GapSize);
+
+                if(m_ShiftTimer > 1f)
+                {
+                    //Ensure new gap height is correct
+                    SetGap(m_NewGapY, m_GapSize);
+                    m_Shifting = false;
+                }
+            }
         }
 
         public void SetGap(float gapY, float gapSize)
@@ -154,6 +211,12 @@ public class PipeSpawnerScript : MonoBehaviour
 
             m_TopPipe.SetHeight((orthoSize * 2.0f) - gapY - gapSizeHalf);
             m_BottomPipe.SetHeight(gapY - gapSizeHalf);
+        }
+
+        public void EnableShift(float newGapY)
+        {
+            m_Shift = true;
+            m_NewGapY = newGapY;
         }
 
         public void DestroySelf()
