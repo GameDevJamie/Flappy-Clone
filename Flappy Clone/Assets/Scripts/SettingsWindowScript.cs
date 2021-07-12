@@ -10,20 +10,27 @@ public class SettingsWindowScript : MonoBehaviour
     [SerializeField]
     private GameObject SpeedSlider;
     [SerializeField]
+    private GameObject ShiftSlider;
+    [SerializeField]
     private GameObject MirrorSlider;
 
     private void Awake()
     {
         GameSettings.SetGameSpeed(GameSettings.GetGameSpeed());
-        GameSettings.SetGravityStrength(GameSettings.GetGravityStrength());
+        //GameSettings.SetGravityStrength(GameSettings.GetGravityStrength());
         GameSettings.SetMasterVolume(GameSettings.GetMasterVolume());
-        GameSettings.SetMirrorMode(GameSettings.GetMirrorMode());
+        //GameSettings.SetMirrorMode(GameSettings.GetMirrorMode());
+        //GameSettings.SetShiftPipesMode(GameSettings.GetShiftPipesMode());
+
+        gameObject.SetActive(false);
     }
 
     private void Start()
     {
         UpdateGravityText(GameSettings.GetGravityStrength());
         UpdateGameSpeedText(GameSettings.GetGameSpeed());
+        UpdateShiftPipesModeText(GameSettings.GetShiftPipesMode());
+        UpdateMirrorModeText(GameSettings.GetMirrorMode());
 
         //Add Listeners to Sliders
         var gravSlider = GravitySlider.GetComponentInChildren<Slider>();
@@ -32,6 +39,9 @@ public class SettingsWindowScript : MonoBehaviour
         var speedslider = SpeedSlider.GetComponentInChildren<Slider>();
         speedslider.onValueChanged.AddListener(delegate { SetGameSpeed((EGameSpeed)((int)speedslider.value)); });
 
+        var shiftSlider = ShiftSlider.GetComponentInChildren<Slider>();
+        shiftSlider.onValueChanged.AddListener(delegate { SetShiftPipesMode((EShiftPipesMode)((int)shiftSlider.value)); });
+
         var mirrorslider = MirrorSlider.GetComponentInChildren<Slider>();
         mirrorslider.onValueChanged.AddListener(delegate { SetMirrorMode((EMirrorMode)((int)mirrorslider.value)); });
 
@@ -39,6 +49,7 @@ public class SettingsWindowScript : MonoBehaviour
         VolumeSlider.GetComponentInChildren<Slider>().value = GameSettings.GetMasterVolume();
         gravSlider.value = (int)GameSettings.GetGravityStrength();
         speedslider.value = (int)GameSettings.GetGameSpeed();
+        shiftSlider.value = (int)GameSettings.GetShiftPipesMode();
         mirrorslider.value = (int)GameSettings.GetMirrorMode();
     }
 
@@ -63,6 +74,14 @@ public class SettingsWindowScript : MonoBehaviour
         UpdateGameSpeedText(speed);
     }
 
+    public void SetShiftPipesMode(EShiftPipesMode mode)
+    {
+        GameSettings.SetShiftPipesMode(mode);
+
+        //Update Text
+        UpdateShiftPipesModeText(mode);
+    }
+
     public void SetMirrorMode(EMirrorMode mode)
     {
         GameSettings.SetMirrorMode(mode);
@@ -80,6 +99,11 @@ public class SettingsWindowScript : MonoBehaviour
     private void UpdateGameSpeedText(EGameSpeed speed)
     {
         SpeedSlider.GetComponentInChildren<Text>().text = "Game Speed: " + (speed.ToString().Replace("_", " "));
+    }
+
+    private void UpdateShiftPipesModeText(EShiftPipesMode mode)
+    {
+        ShiftSlider.GetComponentInChildren<Text>().text = "Shift Pipes: " + (mode.ToString().Replace("_", " "));
     }
 
     private void UpdateMirrorModeText(EMirrorMode mode)

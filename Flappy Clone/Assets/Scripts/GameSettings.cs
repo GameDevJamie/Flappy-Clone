@@ -3,6 +3,7 @@ using UnityEngine;
 
 public enum EGameSpeed { SLOW = 1, NORMAL = 2, FAST = 3, VERY_FAST = 4 }
 public enum EGravityStrength {WEAK = 1, NORMAL = 2, STRONG = 3 }
+public enum EShiftPipesMode { OFF = 0, ON = 1 }
 public enum EMirrorMode { OFF = 0, HORIZONTAL = 1, VERTICAL = 2, BOTH = 3}
 
 public static class GameSettings
@@ -24,6 +25,11 @@ public static class GameSettings
     public static void SetGravityStrength(EGravityStrength gravity)
     {
         PlayerPrefs.SetString("GravityStrength", gravity.ToString());
+    }
+
+    public static void SetShiftPipesMode(EShiftPipesMode mode)
+    {
+        PlayerPrefs.SetString("ShiftPipesMode", mode.ToString());
     }
 
     public static void SetMirrorMode(EMirrorMode mode)
@@ -49,6 +55,12 @@ public static class GameSettings
     {
         string gravity = PlayerPrefs.GetString("GravityStrength", "NORMAL");
         return (EGravityStrength)Enum.Parse(typeof(EGravityStrength), gravity);
+    }
+
+    public static EShiftPipesMode GetShiftPipesMode()
+    {
+        string mode = PlayerPrefs.GetString("ShiftPipesMode", "OFF");
+        return (EShiftPipesMode)Enum.Parse(typeof(EShiftPipesMode), mode);
     }
 
     public static EMirrorMode GetMirrorMode()

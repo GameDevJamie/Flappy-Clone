@@ -5,9 +5,12 @@ public class LevelManagerScript : MonoBehaviour
     public float MoveSpeed; //Howe fast to move the level (Will override move speed of prefabs)
 
     //Managers
-    public GameObject PipeSpawner;
-    public GameObject GroundManager;
-    public GameObject CloudManager;
+    [SerializeField]
+    private PipeSpawnerScript PipeSpawner;
+    [SerializeField]
+    private GroundScript GroundManager;
+    [SerializeField]
+    private CloudScript CloudManager;
 
     //Player
     public GameObject Bird;
@@ -17,11 +20,7 @@ public class LevelManagerScript : MonoBehaviour
     private ToggleActive GameOverWindow;
     [SerializeField]
     private ToggleActive GetReadyWindow;
-    
 
-    private PipeSpawnerScript m_PipeSpawnerScript;
-    private GroundScript m_GroundManagerScript;
-    private CloudScript m_CloudManagerScript;
 
     private enum EState { CHARACTER_SELECT, PLAYING, GAME_OVER }
     private EState m_State;
@@ -29,17 +28,9 @@ public class LevelManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_PipeSpawnerScript = Instantiate(PipeSpawner, Vector3.zero, Quaternion.identity).GetComponent<PipeSpawnerScript>();
-        m_GroundManagerScript = Instantiate(GroundManager, Vector3.zero, Quaternion.identity).GetComponent<GroundScript>();
-        m_CloudManagerScript = Instantiate(CloudManager, Vector3.zero, Quaternion.identity).GetComponent<CloudScript>();
-
-        m_PipeSpawnerScript.transform.SetParent(this.transform);
-        m_GroundManagerScript.transform.SetParent(this.transform);
-        m_CloudManagerScript.transform.SetParent(this.transform);
-
-        m_PipeSpawnerScript.MoveSpeed = MoveSpeed;
-        m_GroundManagerScript.MoveSpeed = MoveSpeed;
-        m_CloudManagerScript.MoveSpeed = MoveSpeed * 0.5f;
+        PipeSpawner.MoveSpeed = MoveSpeed;
+        GroundManager.MoveSpeed = MoveSpeed;
+        CloudManager.MoveSpeed = MoveSpeed * 0.5f;
 
         //Subscribe to Events
         Bird.GetComponent<BirdScript>().OnDied += GameOver;
@@ -47,8 +38,8 @@ public class LevelManagerScript : MonoBehaviour
         m_State = EState.CHARACTER_SELECT;
 
         StopLevel();
-        m_GroundManagerScript.Enable();
-        m_CloudManagerScript.Enable();
+        GroundManager.Enable();
+        CloudManager.Enable();
     }
 
     // Update is called once per frame
@@ -75,17 +66,17 @@ public class LevelManagerScript : MonoBehaviour
 
     private void StopLevel()
     {
-        m_PipeSpawnerScript.Enable(false);
-        m_CloudManagerScript.Enable(false);
-        m_GroundManagerScript.Enable(false);
+        PipeSpawner.Enable(false);
+        CloudManager.Enable(false);
+        GroundManager.Enable(false);
     }
 
     private void StartGame()
     {
         //Tell Managers to start
-        m_PipeSpawnerScript.Enable();
-        m_CloudManagerScript.Enable();
-        m_GroundManagerScript.Enable();
+        PipeSpawner.Enable();
+        CloudManager.Enable();
+        GroundManager.Enable();
 
         //Start Bird Jumping
         Bird.GetComponent<BirdScript>().StartJumping();
