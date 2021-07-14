@@ -16,6 +16,11 @@ public static class GameSettings
         PlayerPrefs.SetString("GameSpeed", speed.ToString());
     }
 
+    public static void SetSelectedBird(int index)
+    {
+        PlayerPrefs.SetInt("SelectedBird", index);
+    }
+
     public static void SetMasterVolume(float volume)
     {
         AudioListener.volume = volume;
@@ -44,6 +49,11 @@ public static class GameSettings
     {
         string speed = PlayerPrefs.GetString("GameSpeed", "NORMAL");
         return (EGameSpeed)Enum.Parse(typeof(EGameSpeed), speed);
+    }
+
+    public static int GetSelectedBird()
+    {
+        return PlayerPrefs.GetInt("SelectedBird", 0);
     }
 
     public static float GetMasterVolume()

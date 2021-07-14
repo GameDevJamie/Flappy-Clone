@@ -27,6 +27,7 @@ public class BirdScript : MonoBehaviour
 
         //Get Animator
         m_Animator = GetComponent<Animator>();
+        m_Animator.SetInteger("AnimIndex", GameSettings.GetSelectedBird());
 
         m_PipesPassed = 0;
     }

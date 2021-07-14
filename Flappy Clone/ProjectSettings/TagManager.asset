@@ -9,6 +9,7 @@ TagManager:
   - Score
   - Modifier
   - UI
+  - Canvas
   layers:
   - Default
   - TransparentFX

@@ -5,6 +5,7 @@ public class LevelManagerScript : MonoBehaviour
     public float MoveSpeed; //Howe fast to move the level (Will override move speed of prefabs)
 
     //Managers
+    [Header("Managers")]
     [SerializeField]
     private PipeSpawnerScript PipeSpawner;
     [SerializeField]
@@ -13,13 +14,19 @@ public class LevelManagerScript : MonoBehaviour
     private CloudScript CloudManager;
 
     //Player
+    [Header("Player")]
     public GameObject Bird;
 
     //UI
+    [Header("UI")]
     [SerializeField]
     private ToggleActive GameOverWindow;
     [SerializeField]
     private ToggleActive GetReadyWindow;
+
+    [Header("Player Death")]
+    [SerializeField]
+    private GameObject FlashScreen;
 
 
     private enum EState { CHARACTER_SELECT, PLAYING, GAME_OVER }
@@ -93,6 +100,8 @@ public class LevelManagerScript : MonoBehaviour
         StopLevel();
 
         //Score.TrySetNewHighScore(Bird.GetComponent<BirdScript>().GetPipesPassed());
+
+        Instantiate(FlashScreen, new Vector3(0, 0, 0), Quaternion.identity, GameObject.FindGameObjectWithTag("Canvas").transform);
 
         GameOverWindow.Show();
     }

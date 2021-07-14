@@ -1553,7 +1553,7 @@ GameObject:
   - component: {fileID: 1622779141}
   m_Layer: 5
   m_Name: UICanvas
-  m_TagString: Untagged
+  m_TagString: Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2249,6 +2249,7 @@ MonoBehaviour:
   Bird: {fileID: 1299041912}
   GameOverWindow: {fileID: 1071428283}
   GetReadyWindow: {fileID: 694344473}
+  FlashScreen: {fileID: 8146439597411023200, guid: b96518f0aa62bab4c95fea26bdd67607, type: 3}
 --- !u!4 &2143357766
 Transform:
   m_ObjectHideFlags: 0

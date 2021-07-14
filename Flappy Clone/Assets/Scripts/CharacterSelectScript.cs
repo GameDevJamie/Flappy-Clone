@@ -25,7 +25,7 @@ public class CharacterSelectScript : MonoBehaviour
 
     private void Start()
     {
-        int selectedIndex = PlayerPrefs.GetInt("CharacterSelectIndex", 0);
+        int selectedIndex = GameSettings.GetSelectedBird();
 
         //Set Sprite to previously used bird
         m_SelectedSpriteIndex = selectedIndex;
@@ -51,6 +51,8 @@ public class CharacterSelectScript : MonoBehaviour
 
         SetAnimation(m_SelectedSpriteIndex);
         PlaySound();
+
+        SaveSelectedSprite();
     }
 
     public void PreviousSprite()
@@ -60,6 +62,13 @@ public class CharacterSelectScript : MonoBehaviour
 
         SetAnimation(m_SelectedSpriteIndex);
         PlaySound();
+
+        SaveSelectedSprite();
+    }
+
+    private void SaveSelectedSprite()
+    {
+        GameSettings.SetSelectedBird(m_SelectedSpriteIndex);
     }
 
     private void PlaySound()
