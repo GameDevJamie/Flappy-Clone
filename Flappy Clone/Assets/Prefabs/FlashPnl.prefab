@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8146439597411023229}
   - component: {fileID: 8146439597411023230}
   - component: {fileID: 8146439597411023227}
+  - component: {fileID: -6517783680363371452}
   m_Layer: 5
   m_Name: FlashPnl
   m_TagString: Untagged
@@ -109,3 +110,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Timer: 1
+--- !u!114 &-6517783680363371452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8146439597411023200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7604e9f3e674da54a8bbeea994c2b13f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ToSpawn: {fileID: 0}
