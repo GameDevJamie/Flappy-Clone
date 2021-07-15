@@ -122,4 +122,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7604e9f3e674da54a8bbeea994c2b13f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ToSpawn: {fileID: 0}
+  ToSpawn: {fileID: 1337113309054025157, guid: 9a770e7a4f11aa14192990e07e336602, type: 3}
+  SameParent: 1

@@ -20,8 +20,6 @@ public class LevelManagerScript : MonoBehaviour
     //UI
     [Header("UI")]
     [SerializeField]
-    private ToggleActive GameOverWindow;
-    [SerializeField]
     private ToggleActive GetReadyWindow;
 
     [Header("Player Death")]
@@ -102,8 +100,6 @@ public class LevelManagerScript : MonoBehaviour
         //Score.TrySetNewHighScore(Bird.GetComponent<BirdScript>().GetPipesPassed());
 
         Instantiate(FlashScreen, new Vector3(0, 0, 0), Quaternion.identity, GameObject.FindGameObjectWithTag("Canvas").transform);
-
-        GameOverWindow.Show();
     }
     #endregion
 }

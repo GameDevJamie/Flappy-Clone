@@ -10,6 +10,7 @@ TagManager:
   - Modifier
   - UI
   - Canvas
+  - LevelLoader
   layers:
   - Default
   - TransparentFX
