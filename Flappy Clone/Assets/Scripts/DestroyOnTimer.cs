@@ -10,7 +10,7 @@ public class DestroyOnTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Timer -= Time.deltaTime;
+        Timer -= Time.unscaledDeltaTime;
         if(Timer < 0f)
         {
             Destroy(this.gameObject);

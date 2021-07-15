@@ -4,6 +4,18 @@ using UnityEngine;
 
 public static class Score
 {
+    private static int _score;
+
+    public static void SetScore(int score)
+    {
+        _score = score;
+    }
+
+    public static int GetScore()
+    {
+        return _score;
+    }
+
     /// <summary>
     /// Retrieves current highscore saved
     /// </summary>

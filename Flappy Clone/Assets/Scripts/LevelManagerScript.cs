@@ -97,8 +97,6 @@ public class LevelManagerScript : MonoBehaviour
         m_State = EState.GAME_OVER;
         StopLevel();
 
-        //Score.TrySetNewHighScore(Bird.GetComponent<BirdScript>().GetPipesPassed());
-
         Instantiate(FlashScreen, new Vector3(0, 0, 0), Quaternion.identity, GameObject.FindGameObjectWithTag("Canvas").transform);
     }
     #endregion

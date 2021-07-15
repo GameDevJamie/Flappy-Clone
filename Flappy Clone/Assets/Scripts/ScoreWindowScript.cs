@@ -7,8 +7,8 @@ public class ScoreWindowScript : MonoBehaviour
 {
     [SerializeField]
     private Text ScoreText;
-    //[SerializeField]
-    //private Text HighScoreText;
+
+    private int _currentScore;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +20,8 @@ public class ScoreWindowScript : MonoBehaviour
     private void UpdateScoreText(object sender, int pipesPassed)
     {
         ScoreText.text = "Score: " + pipesPassed;
+        _currentScore = pipesPassed;
+        Score.SetScore(_currentScore);
 
         SoundManager.GetInstance().PlaySoundEffect(Sound.SCORE);
     }
