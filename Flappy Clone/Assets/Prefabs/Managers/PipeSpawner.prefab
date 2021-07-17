@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 580399e9cf2bc2144bcfc98d554cd43a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSpeed: 0
   DifficultyList:
   - PipeSpawnRate: 3
     GapSize: 50
@@ -59,3 +60,5 @@ MonoBehaviour:
   - PipeSpawnRate: 2
     GapSize: 20
     PipesSpawned: 13
+  TopEdgeLimit: 10
+  BottomEdgeLimit: 35

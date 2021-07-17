@@ -15,6 +15,12 @@ public class PipeSpawnerScript : MonoBehaviour
 
     public float MoveSpeed;
     public List<Difficulty> DifficultyList;
+
+    [SerializeField]
+    private float TopEdgeLimit;
+    [SerializeField]
+    private float BottomEdgeLimit;
+
     private int m_DifficultyIndex;
 
     private int m_PipesSpawned;
@@ -104,10 +110,9 @@ public class PipeSpawnerScript : MonoBehaviour
     {
         //Calculate Min and Max height for the pipes
         float gapSizeHalf = DifficultyList[m_DifficultyIndex].GapSize * 0.5f;
-        float heightEdgeLimit = 10f;
-        float minHeight = gapSizeHalf + heightEdgeLimit;
+        float minHeight = gapSizeHalf + BottomEdgeLimit;
         float totalHeight = Mathf.Abs((Camera.main.orthographicSize * 2.0f));
-        float maxHeight = totalHeight - gapSizeHalf - heightEdgeLimit;
+        float maxHeight = totalHeight - gapSizeHalf - TopEdgeLimit;
 
         //Spawn Pipe
         float height = Random.Range(minHeight, maxHeight);

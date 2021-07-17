@@ -1599,7 +1599,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6cc592bcee162444b3f33fc4f4f9cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 40
+  MoveSpeed: 30
   PipeSpawner: {fileID: 1233447741}
   GroundManager: {fileID: 1622548867}
   CloudManager: {fileID: 281173182}
