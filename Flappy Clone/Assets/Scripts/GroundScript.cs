@@ -37,6 +37,7 @@ public class GroundScript : MonoBehaviour
     {
         if (!m_Active) return;
         Move();
+        HandlePositions();
     }
 
     private void Move()
@@ -44,14 +45,23 @@ public class GroundScript : MonoBehaviour
         foreach(GameObject ground in GroundList)
         {
             ground.transform.position += Vector3.left * MoveSpeed * Time.deltaTime;
+        }
+    }
 
-            if(ground.transform.position.x < DestroyXPos)
+    /// <summary>
+    /// Moves each ground object to the rightmost ground object, if out of bounds
+    /// </summary>
+    private void HandlePositions()
+    {
+        foreach (GameObject ground in GroundList)
+        {
+            if (ground.transform.position.x < DestroyXPos)
             {
                 //Find the rightmost ground object
-                float rightMostXPos = -100f;
-                for(int i = 0; i < GroundList.Length; ++i)
+                float rightMostXPos = ground.transform.position.x;
+                for (int i = 0; i < GroundList.Length; ++i)
                 {
-                    if(GroundList[i].transform.position.x > rightMostXPos) rightMostXPos = GroundList[i].transform.position.x;
+                    if (GroundList[i].transform.position.x > rightMostXPos) rightMostXPos = GroundList[i].transform.position.x;
                 }
 
                 //Move to the end of the ground train
