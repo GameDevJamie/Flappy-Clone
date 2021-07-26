@@ -21,6 +21,8 @@ public class LevelManagerScript : MonoBehaviour
     [Header("UI")]
     [SerializeField]
     private ToggleActive GetReadyWindow;
+    [SerializeField]
+    private ToggleActive ScoreWindow;
 
     [Header("Player Death")]
     [SerializeField]
@@ -45,6 +47,7 @@ public class LevelManagerScript : MonoBehaviour
         StopLevel();
         GroundManager.Enable();
         CloudManager.Enable();
+        ScoreWindow.Hide();
     }
 
     // Update is called once per frame
@@ -87,7 +90,8 @@ public class LevelManagerScript : MonoBehaviour
         Bird.GetComponent<BirdScript>().StartJumping();
 
         GetReadyWindow.Hide();
-
+        ScoreWindow.Show();
+        
         m_State = EState.PLAYING;
     }
 
@@ -98,6 +102,7 @@ public class LevelManagerScript : MonoBehaviour
         StopLevel();
 
         Instantiate(FlashScreen, new Vector3(0, 0, 0), Quaternion.identity, GameObject.FindGameObjectWithTag("Canvas").transform);
+        ScoreWindow.Hide();
     }
     #endregion
 }

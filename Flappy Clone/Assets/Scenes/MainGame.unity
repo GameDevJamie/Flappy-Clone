@@ -801,6 +801,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 959069909155597359, guid: a69dfc524265fd949a6b7452d20cc598, type: 3}
+      propertyPath: m_SpriteList.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 9bb72975db9774f4b89562c3e17366ab, type: 3}
+    - target: {fileID: 959069909155597359, guid: a69dfc524265fd949a6b7452d20cc598, type: 3}
+      propertyPath: m_SpriteList.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 9bb72975db9774f4b89562c3e17366ab, type: 3}
+    - target: {fileID: 959069909155597359, guid: a69dfc524265fd949a6b7452d20cc598, type: 3}
+      propertyPath: m_SpriteList.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 9bb72975db9774f4b89562c3e17366ab, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a69dfc524265fd949a6b7452d20cc598, type: 3}
 --- !u!114 &1233447741 stripped
@@ -1140,6 +1152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1666463542}
   - component: {fileID: 1666463543}
+  - component: {fileID: 1666463544}
   m_Layer: 5
   m_Name: ScoreWindow
   m_TagString: Untagged
@@ -1190,7 +1203,20 @@ MonoBehaviour:
   - {fileID: 21300000, guid: bb7bbe7ad6ec84e49b3ce5dc502e4f0d, type: 3}
   - {fileID: 21300000, guid: eab069ea5c1580f48ac6d17d5a63d94c, type: 3}
   NumberSize: {x: 152, y: 202}
-  XOffset: 150
+  XOffset: 200
+--- !u!114 &1666463544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666463541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b71960db92484143adb2a2ee7b8d8c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Active: 1
 --- !u!1001 &1735486943
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1245,6 +1271,38 @@ PrefabInstance:
     - target: {fileID: 9016621678800955246, guid: b866f549247f54b42bd4ce029af6604f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9016621678800955247, guid: b866f549247f54b42bd4ce029af6604f, type: 3}
+      propertyPath: DifficultyList.Array.data[0].GapSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 9016621678800955247, guid: b866f549247f54b42bd4ce029af6604f, type: 3}
+      propertyPath: DifficultyList.Array.data[1].GapSize
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 9016621678800955247, guid: b866f549247f54b42bd4ce029af6604f, type: 3}
+      propertyPath: DifficultyList.Array.data[2].GapSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 9016621678800955247, guid: b866f549247f54b42bd4ce029af6604f, type: 3}
+      propertyPath: DifficultyList.Array.data[1].PipesSpawned
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9016621678800955247, guid: b866f549247f54b42bd4ce029af6604f, type: 3}
+      propertyPath: DifficultyList.Array.data[2].PipesSpawned
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9016621678800955247, guid: b866f549247f54b42bd4ce029af6604f, type: 3}
+      propertyPath: DifficultyList.Array.data[3].PipesSpawned
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9016621678800955247, guid: b866f549247f54b42bd4ce029af6604f, type: 3}
+      propertyPath: DifficultyList.Array.data[4].PipesSpawned
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 9016621678800955247, guid: b866f549247f54b42bd4ce029af6604f, type: 3}
+      propertyPath: DifficultyList.Array.data[4].PipeSpawnRate
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b866f549247f54b42bd4ce029af6604f, type: 3}
@@ -1537,6 +1595,7 @@ MonoBehaviour:
   CloudManager: {fileID: 281173182}
   Bird: {fileID: 1299041912}
   GetReadyWindow: {fileID: 694344473}
+  ScoreWindow: {fileID: 1666463544}
   FlashScreen: {fileID: 8146439597411023200, guid: b96518f0aa62bab4c95fea26bdd67607, type: 3}
 --- !u!4 &2143357766
 Transform:

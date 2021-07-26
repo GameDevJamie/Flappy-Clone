@@ -44,6 +44,11 @@ public class CharacterSelectScript : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        SetAnimation(m_SelectedSpriteIndex);
+    }
+
     public void NextSprite()
     {
         m_SelectedSpriteIndex++;
