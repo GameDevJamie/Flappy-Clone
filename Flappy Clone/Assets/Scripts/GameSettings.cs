@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public enum EGameSpeed { SLOW = 1, NORMAL = 2, FAST = 3, VERY_FAST = 4 }
+public enum EGameSpeed { SLOW = 1, NORMAL = 2, FAST = 3, INSANE = 4 }
 public enum EGravityStrength {WEAK = 1, NORMAL = 2, STRONG = 3 }
 public enum EShiftPipesMode { OFF = 0, ON = 1 }
 public enum EMirrorMode { OFF = 0, HORIZONTAL = 1, VERTICAL = 2, BOTH = 3}
